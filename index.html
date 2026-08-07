@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="陀螺對戰：蓄力發射、碰撞消旋、三戰兩勝。純前端 Playgrounds SAM，手機優先、自製音效。"
+    />
+    <title>陀螺對戰</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="eyebrow">街機</p>
+        <h1>陀螺對戰</h1>
+        <p class="tagline">蓄力發射 · 碰撞消旋 · 三戰兩勝</p>
+      </header>
+
+      <section class="meter" aria-label="對局狀態">
+        <div class="meter-item">
+          <span class="label">戰績</span>
+          <strong id="score">0 : 0</strong>
+        </div>
+        <div class="meter-item">
+          <span class="label">最佳連勝</span>
+          <strong id="best">0</strong>
+        </div>
+        <div class="meter-actions">
+          <button type="button" id="btn-mute" class="secondary" aria-pressed="true">音效開</button>
+        </div>
+      </section>
+
+      <div class="controls">
+        <button type="button" id="btn-start">開局</button>
+      </div>
+
+      <p id="status" class="status" role="status">點「開局」開始三戰兩勝</p>
+
+      <div class="spin-panel" aria-label="轉速">
+        <div class="spin-row">
+          <span class="spin-label">我方 RPM</span>
+          <div class="spin-bar" role="meter" aria-valuemin="0" aria-valuemax="1500" aria-valuenow="0">
+            <div id="bar-you" class="spin-fill you"></div>
+          </div>
+          <strong id="rpm-you" class="spin-num">0</strong>
+        </div>
+        <div class="spin-row">
+          <span class="spin-label">對手 RPM</span>
+          <div class="spin-bar" role="meter" aria-valuemin="0" aria-valuemax="1500" aria-valuenow="0">
+            <div id="bar-enemy" class="spin-fill enemy"></div>
+          </div>
+          <strong id="rpm-enemy" class="spin-num">0</strong>
+        </div>
+      </div>
+
+      <div class="stage">
+        <canvas id="game" width="360" height="360" aria-label="陀螺對戰競技場"></canvas>
+        <div id="charge-hint" class="charge-hint" hidden>按住蓄力 · 放開發射</div>
+      </div>
+
+      <p class="hint" id="hint">在競技場按住蓄力，拖曳調整方向後放開發射；把對手撞出圈或耗盡轉速即勝該局。</p>
+
+      <details class="rules">
+        <summary>怎麼玩</summary>
+        <ul>
+          <li>每局雙方各發射一枚陀螺，碰撞會交換速度並<strong>消耗轉速</strong>。</li>
+          <li>轉速歸零或陀螺滑出圓形競技場即判負；<strong>三戰兩勝</strong>。</li>
+          <li>蓄力越久，初速與 RPM 越高；對手由 AI 自動發射。</li>
+        </ul>
+      </details>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
