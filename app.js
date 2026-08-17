@@ -3,6 +3,8 @@ import { TopDuelGame, W, H, MAX_RPM } from "./game.js";
 
 const audio = new TopDuelAudio();
 const game = new TopDuelGame();
+// KV 為權威；本地快取過舊時以遠端為準
+void game.mergeBestFromKv().then(() => syncHud());
 
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("game"));
 const ctx = canvas.getContext("2d");

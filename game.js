@@ -94,6 +94,22 @@ export class TopDuelGame {
       } catch {
         /* ignore */
       }
+      // KV 為權威；LS 僅快取
+      void fetch(`/api/kv/${BEST_KEY}`, { method: "PUT", body: String(this.bestStreak) }).catch(
+        () => {}
+      );
+    }
+  }
+
+  /** KV 為權威；本地快取過舊時以遠端為準 */
+  async mergeBestFromKv() {
+    try {
+      const res = await fetch(`/api/kv/${BEST_KEY}`);
+      if (!res.ok) return;
+      const n = Math.floor(Number((await res.text()) || 0));
+      if (Number.isFinite(n) && n > this.bestStreak) this.bestStreak = n;
+    } catch {
+      /* 無 KV 環境照玩 */
     }
   }
 
